@@ -1,0 +1,20 @@
+{
+  "vm": {
+    "main": "resource \"azurerm_linux_virtual_machine\" \"main\" {\n  name                = \"example-vm\"\n  resource_group_name = azurerm_resource_group.main.name\n  location            = azurerm_resource_group.main.location\n  size                = var.vm_size\n  admin_username      = var.admin_username\n  admin_password      = var.admin_password\n  network_interface_ids = [azurerm_network_interface.main.id]\n  os_disk {\n    caching              = \"ReadWrite\"\n    storage_account_type = \"Standard_LRS\"\n    disk_size_gb         = var.disk_size\n  }\n  source_image_reference {\n    publisher = \"Canonical\"\n    offer     = \"UbuntuServer\"\n    sku       = \"18.04-LTS\"\n    version   = \"latest\"\n  }\n  computer_name  = \"example-vm\"\n  admin_ssh_key {\n    username   = var.admin_username\n    public_key = var.ssh_public_key\n  }\n}\n",
+    "variables": "variable \"vm_size\" {\n  description = \"The size of the VM\"\n  type        = string\n  default     = \"Standard_B1ms\"\n}\nvariable \"disk_size\" {\n  description = \"The size of the OS disk in GB\"\n  type        = number\n  default     = 30\n}\nvariable \"admin_username\" {\n  description = \"Admin username\"\n  type        = string\n  default     = \"adminuser\"\n}\nvariable \"admin_password\" {\n  description = \"Admin password\"\n  type        = string\n  default     = \"Password1234!\"\n}\nvariable \"ssh_public_key\" {\n  description = \"SSH public key\"\n  type        = string\n  default     = \"<your-ssh-public-key>\"\n}\n",
+    "provider": "provider \"azurerm\" {\n  features {}\n}\n",
+    "outputs": "output \"vm_id\" {\n  value = azurerm_linux_virtual_machine.main.id\n}\noutput \"vm_public_ip\" {\n  value = azurerm_linux_virtual_machine.main.public_ip_address\n}\n"
+  },
+  "storage": {
+    "main": "resource \"azurerm_storage_account\" \"main\" {\n  name                     = var.storage_account_name\n  resource_group_name      = azurerm_resource_group.main.name\n  location                 = azurerm_resource_group.main.location\n  account_tier             = var.account_tier\n  account_replication_type = var.account_replication_type\n  allow_blob_public_access = false\n}\n",
+    "variables": "variable \"storage_account_name\" {\n  description = \"The name of the storage account\"\n  type        = string\n  default     = \"examplestorageacct\"\n}\nvariable \"account_tier\" {\n  description = \"The storage account tier\"\n  type        = string\n  default     = \"Standard\"\n}\nvariable \"account_replication_type\" {\n  description = \"The replication type\"\n  type        = string\n  default     = \"LRS\"\n}\n",
+    "provider": "provider \"azurerm\" {\n  features {}\n}\n",
+    "outputs": "output \"storage_account_id\" {\n  value = azurerm_storage_account.main.id\n}\n"
+  },
+  "network": {
+    "main": "resource \"azurerm_virtual_network\" \"main\" {\n  name                = var.vnet_name\n  address_space       = var.address_space\n  location            = azurerm_resource_group.main.location\n  resource_group_name = azurerm_resource_group.main.name\n}\n",
+    "variables": "variable \"vnet_name\" {\n  description = \"The name of the virtual network\"\n  type        = string\n  default     = \"example-vnet\"\n}\nvariable \"address_space\" {\n  description = \"The address space for the vnet\"\n  type        = list(string)\n  default     = [\"10.0.0.0/16\"]\n}\n",
+    "provider": "provider \"azurerm\" {\n  features {}\n}\n",
+    "outputs": "output \"vnet_id\" {\n  value = azurerm_virtual_network.main.id\n}\n"
+  }
+}

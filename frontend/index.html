@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terraform File Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" />
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; }
+        .container { max-width: 600px; margin: auto; }
+        label { display: block; margin-top: 1rem; }
+        input, select { width: 100%; padding: 0.5rem; margin-top: 0.5rem; }
+        button { margin-top: 1.5rem; padding: 0.7rem 1.5rem; }
+        pre { background: #272822; color: #f8f8f2; padding: 1rem; border-radius: 5px; margin-top: 2rem; }
+        .copy-btn { margin-top: 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Terraform File Generator</h1>
+        <form id="resourceForm">
+            <label for="resourceType">Resource Type</label>
+            <select id="resourceType" name="resourceType" required onchange="updateFields()">
+                <option value="vm">Virtual Machine</option>
+                <option value="storage">Storage Account</option>
+                <option value="network">Virtual Network</option>
+            </select>
+            <div id="vmFields">
+                <label for="cpu">CPU Cores</label>
+                <input type="number" id="cpu" name="cpu" min="1" max="64">
+                <label for="ram">RAM Size (GB)</label>
+                <input type="number" id="ram" name="ram" min="1" max="512">
+                <label for="disk">Disk Size (GB)</label>
+                <input type="number" id="disk" name="disk" min="10" max="2048">
+            </div>
+            <div id="storageFields" style="display:none;">
+                <!-- Add storage-specific fields here if needed -->
+            </div>
+            <div id="networkFields" style="display:none;">
+                <!-- Add network-specific fields here if needed -->
+            </div>
+            <button type="submit">Generate Terraform Code</button>
+        </form>
+        <div id="outputSection" style="display:none;">
+            <div id="fileBlocks"></div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script>
+    function updateFields() {
+        var type = document.getElementById('resourceType').value;
+        document.getElementById('vmFields').style.display = (type === 'vm') ? 'block' : 'none';
+        document.getElementById('storageFields').style.display = (type === 'storage') ? 'block' : 'none';
+        document.getElementById('networkFields').style.display = (type === 'network') ? 'block' : 'none';
+    }
+    window.onload = updateFields;
+    </script>
+    <script src="/static/app.js"></script>
+</body>
+</html>
