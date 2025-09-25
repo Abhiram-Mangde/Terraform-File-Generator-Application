@@ -12,6 +12,9 @@ This web application allows users to input resource specifications (like VMs, St
 - Display of generated Terraform code in a code block with syntax highlighting (Prism.js)
 - Copy-to-clipboard feature for easy code copying
 
+  ## Architecture Diagram
+  [High Level Architecture Diagram](https://github.com/Abhiram-Mangde/Terraform-File-Generator-Application/blob/main/TerraformArchitecture.png)
+
 ## Setup Instructions
 
 ### Backend
