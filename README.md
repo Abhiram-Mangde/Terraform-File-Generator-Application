@@ -13,7 +13,7 @@ This web application allows users to input resource specifications (like VMs, St
 - Copy-to-clipboard feature for easy code copying
 
   ## Architecture Diagram
-  [High Level Architecture Diagram](https://github.com/Abhiram-Mangde/Terraform-File-Generator-Application/blob/main/TerraformArchitecture.png)
+  [High Level Architecture Diagram](https://github.com/Abhiram-Mangde/Terraform-File-Generator-Application/blob/main/image.png)
 
 ## Setup Instructions
 
